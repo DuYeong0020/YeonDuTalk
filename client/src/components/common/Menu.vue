@@ -1,13 +1,19 @@
 <template>
-  <v-navigation-drawer>
-    <v-list dense nav>
-      <v-list-item v-for="item in items" :key="item.title" link>
+  <v-navigation-drawer app permanent width="55">
+    <v-list nav>
+      <v-list-item v-for="item in items" :key="item.title" link :to="item.link">
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
-          sfda
         </v-list-item-icon>
       </v-list-item>
     </v-list>
+    <template v-slot:append>
+      <v-list-item link to="/mypage">
+        <v-list-item-icon>
+          <v-icon>mdi-cog</v-icon>
+        </v-list-item-icon>
+      </v-list-item>
+    </template>
   </v-navigation-drawer>
 </template>
 
@@ -17,11 +23,9 @@ export default Vue.extend({
   data() {
     return {
       items: [
-        { title: "Dashboard", icon: "mdi-view-dashboard" },
-        { title: "Photos", icon: "mdi-image" },
-        { title: "About", icon: "mdi-help-box" },
+        { link: "/friends", icon: "mdi-account-supervisor" },
+        { link: "/chat-list", icon: "mdi-message" },
       ],
-      right: null,
     };
   },
 });

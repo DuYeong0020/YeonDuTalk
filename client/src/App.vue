@@ -1,7 +1,7 @@
 <template>
   <v-app>
+    <Menu />
     <v-main>
-      <Menu />
       <router-view />
     </v-main>
   </v-app>
@@ -21,3 +21,5 @@ export default Vue.extend({
   data: () => ({}),
 });
 </script>
+
+<style lang="scss"></style>
