@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Menu />
+    <Menu v-if="$route.path !== '/login'" />
     <v-main>
       <router-view />
     </v-main>

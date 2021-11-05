@@ -6,6 +6,10 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
   {
     path: "/",
+    redirect: "/login",
+  },
+  {
+    path: "/login",
     name: "Login",
     component: () => import("../views/Login.vue"),
   },

@@ -1,6 +1,9 @@
 <template>
   <v-container>
-    <h1>로그인</h1>
+    <v-row class="text-center">
+      <h1>로그인</h1>
+      <v-btn link to="/friends">로그인</v-btn>
+    </v-row>
   </v-container>
 </template>
 
