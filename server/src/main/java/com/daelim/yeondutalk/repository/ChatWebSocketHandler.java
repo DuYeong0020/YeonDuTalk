@@ -1,4 +1,4 @@
-package com.daelim.yeondutalk;
+package com.daelim.yeondutalk.repository;
 
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
