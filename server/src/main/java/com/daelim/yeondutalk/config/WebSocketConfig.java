@@ -10,14 +10,11 @@ import org.springframework.web.socket.config.annotation.*;
 
 @Configuration
 @EnableWebSocket
-public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfigurer implements WebSocketConfigurer, WebSocketMessageBrokerConfigurer {
+public class WebSocketConfig implements WebSocketConfigurer, WebSocketMessageBrokerConfigurer {
 
     private final static String CHAT_ENDPOINT = "/chat";
 
-    @Override
-    protected boolean sameOriginDisabled() {
-        return true;
-    }
+
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
