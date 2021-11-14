@@ -1,2 +1,8 @@
-package com.daelim.yeondutalk.controller;public class UserController {
+package com.daelim.yeondutalk.controller;
+
+import org.springframework.stereotype.Controller;
+
+
+public class UserController {
+
 }

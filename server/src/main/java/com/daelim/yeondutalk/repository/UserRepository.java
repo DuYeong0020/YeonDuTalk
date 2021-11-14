@@ -1,2 +1,4 @@
-package com.daelim.yeondutalk.repository;public interface UserRepository {
+package com.daelim.yeondutalk.repository;
+
+public interface UserRepository {
 }
