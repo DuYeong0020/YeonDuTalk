@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
   {
     path: "/",
-    redirect: "/login",
+    redirect: "/chatroom",
   },
   {
     path: "/login",
@@ -27,6 +27,11 @@ const routes: Array<RouteConfig> = [
     path: "/mypage",
     name: "Mypage",
     component: () => import("../views/Mypage.vue"),
+  },
+  {
+    path: "/chatroom",
+    name: "ChatRoom",
+    component: () => import("../views/ChatRoom.vue"),
   },
 ];
 
