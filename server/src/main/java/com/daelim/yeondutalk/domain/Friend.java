@@ -9,16 +9,17 @@ import javax.persistence.*;
 public class Friend extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "FRND_ID")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID1")
-    private User user1;
+    @JoinColumn(name = "REQ_USER_ID")
+    private User requestUser;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID2")
-    private User user2;
+    @JoinColumn(name = "TAG_USER_ID")
+    private User tagUser;
 
 
 

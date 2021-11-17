@@ -4,14 +4,20 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class Room {
+public class Room extends BaseEntity {
 
 
-    @Id
+    @Id @Column(name = "ROOM_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String roomCode;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ROOM_CODE")
+    private CommonCode code;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CRER_ID")
+    private User user;
 
 
 
