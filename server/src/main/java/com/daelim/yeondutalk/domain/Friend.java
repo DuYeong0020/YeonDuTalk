@@ -21,6 +21,9 @@ public class Friend extends BaseEntity {
     @JoinColumn(name = "TAG_USER_ID")
     private User tagUser;
 
+    @Column(name = "ACPT_YN", nullable = false, columnDefinition = "varchar(1) default 'N'")
+    private String accepted;
+
 
 
 }

@@ -14,12 +14,12 @@ import javax.persistence.Table;
 public class CommonCode extends BaseEntity {
 
     @Id
-    @Column(name = "CD_NM")
+    @Column(name = "CD_NM", nullable = false, length = 4)
     private String name; // 코드명
 
-    @Column(name = "CD_TYPE")
+    @Column(name = "CD_TYPE", nullable = false, length = 4)
     private String type; // 코드유형
 
-    @Column(name = "CD_DC")
+    @Column(name = "CD_DC", length = 200)
     private String description; // 코드설명
 }
