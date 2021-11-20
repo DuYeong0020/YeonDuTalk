@@ -13,9 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 @SpringBootTest
+@Transactional
 class UserMysqlRepositoryTest {
     @Autowired
     private UserRepository userRepository;
@@ -24,27 +26,63 @@ class UserMysqlRepositoryTest {
     private EntityManager em;
 
     @Test
-    @Transactional
     @DisplayName("유저를 저장한 후 영속성 컨텍스트를 지우고 유저를 찾은뒤 같은 내용인지를 비교")
     public void save() throws Exception {
-        // given: 유저를 생성
+        // given
         User buildUser = User.builder()
-                .userId("userid")
+                .userId("saveId")
+                .userName("dudu")
+                .password("password").build(); // user 생성
+
+        // when
+        Long saveId = userRepository.save(buildUser); // user 저장
+
+        em.clear(); // 영속성 컨텍스트를 지운다.
+
+        User findUser = userRepository.findById(saveId); // 저장이 됬는지 user 꺼내기
+
+        // then
+        assertThat(findUser).isEqualTo(buildUser); // 저장한 user와 찾은 user 값 비교하기
+    }
+
+    @Test
+    @DisplayName("이미 존재하는 아이디일 경우 객체를 리턴")
+    public void findDuplicatedUser() throws Exception {
+        // given
+        User duplicatedUser = User.builder()
+                .userId("duplicatedId")
                 .userName("dudu")
                 .password("password").build();
 
+        Long saveId = userRepository.save(duplicatedUser); // 미리 유저 생성 후 저장하기
+
         // when
-        Long saveId = userRepository.save(buildUser);
-
-        // 영속성 컨텍스트를 지운다.
-        em.clear();
-
-        User findUser = userRepository.findById(saveId);
+        User saveUser = User.builder()
+                .userId("duplicatedId")
+                .userName("dudu")
+                .password("password").build(); // 전의 유저와 userId가 동일한 user 생성
 
         // then
-        Assertions.assertThat(findUser).isEqualTo(buildUser);
+        User findUser = userRepository.findByUserId(saveUser.getUserId()); // 중복된 user인지 확인. 참이면 유저 반환
+
+        assertThat(findUser).isNotNull(); // NotNull인지 확인하기
+
     }
 
+    @Test
+    @DisplayName("중복되지 않은 아이디 입력시 null 반환")
+    public void findNotDuplicatedUser() throws Exception {
+        // given
+        User saveUser = User.builder()
+                .userId("notDuplicatedId")
+                .userName("dudu")
+                .password("password").build(); // 저장할 user 생성
+        // when
+        User findUser = userRepository.findByUserId(saveUser.getUserId()); // 중복되지 않으면 null 반환. false면 null 반환
+        // then
+        assertThat(findUser).isNull(); // Null인지 확인
+
+    }
 
 
 }

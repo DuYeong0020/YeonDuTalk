@@ -8,7 +8,7 @@ public interface UserRepository {
 
     public User findById(Long id); // id로 유저 찾고 User 반환
 
-    public User findByUserId(Long userId); // userId로 유저의 User 반환
+    public User findByUserId(String userId); // userId로 유저의 User 반환
 
 
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -26,9 +27,14 @@ public class UserMysqlRepository implements UserRepository{
     }
 
     @Override
-    public User findByUserId(Long userId) {
+    public User findByUserId(String userId) {
 
-        return em.createQuery("select u from User u where u.userId = :userId", User.class)
-                .setParameter("userId", userId).getResultList().get(0);
+        List<User> userList = em.createQuery("select u from User u where u.userId = :userId", User.class)
+                .setParameter("userId", userId).getResultList();
+        if (userList.isEmpty()) {
+            return null;
+        }else{
+            return userList.get(0);
+        }
     }
 }
