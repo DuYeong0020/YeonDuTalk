@@ -9,7 +9,7 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
   {
     path: "/",
-    redirect: "/chatroom",
+    redirect: "/login",
   },
   ...userRoutes,
   ...chatRoutes,

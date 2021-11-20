@@ -9,7 +9,7 @@
         ></v-img>
       </v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title>이연권</v-list-item-title>
+        <v-list-item-title>최두영</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
 
@@ -40,23 +40,23 @@ import Vue from "vue";
 export default Vue.extend({
   data() {
     return {
-      selected: 2,
+      selected: null,
       recent: [
         {
           avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-          title: "Jason Oner",
+          title: "일연권",
         },
         {
           avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-          title: "Mike Carlson",
+          title: "이연권",
         },
         {
           avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          title: "Cindy Baker",
+          title: "삼연권",
         },
         {
           avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-          title: "Ali Connors",
+          title: "사연권",
         },
       ],
     };
