@@ -1,6 +1,7 @@
 package com.daelim.yeondutalk.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
@@ -11,7 +12,7 @@ import java.io.Serializable;
 
 @Embeddable
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor @Getter
 public class RoomUserPK implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)

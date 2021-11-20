@@ -2,6 +2,8 @@ package com.daelim.yeondutalk.domain;
 
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -9,7 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@Entity @Getter @AllArgsConstructor @NoArgsConstructor
 @Table(name = "CMMN_CD")
 public class CommonCode extends BaseEntity {
 

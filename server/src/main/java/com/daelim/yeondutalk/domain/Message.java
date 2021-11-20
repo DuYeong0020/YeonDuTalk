@@ -1,9 +1,15 @@
 package com.daelim.yeondutalk.domain;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
-@Entity @Table
+@Entity @Table @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Message extends BaseEntity {
 
     @Id @GeneratedValue

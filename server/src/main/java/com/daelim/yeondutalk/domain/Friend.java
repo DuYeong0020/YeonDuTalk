@@ -1,10 +1,13 @@
 package com.daelim.yeondutalk.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Getter
+@Getter @AllArgsConstructor
+@NoArgsConstructor
 @Entity @Table
 public class Friend extends BaseEntity {
 
