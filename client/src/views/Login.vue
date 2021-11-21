@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="login">
     <v-row class="text-center">
       <v-col>
         <logo />
@@ -11,8 +11,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-import Logo from "../components/common/Logo.vue";
-import LoginForm from "../components/login/LoginForm.vue";
+import Logo from "@/components/common/Logo.vue";
+import LoginForm from "@/components/login/LoginForm.vue";
 
 export default Vue.extend({
   name: "Home",
@@ -23,3 +23,10 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style scoped>
+.login {
+  height: 100vh;
+  background-color: #003a3d;
+}
+</style>

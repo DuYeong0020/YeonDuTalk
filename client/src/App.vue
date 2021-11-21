@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <Menu v-if="$route.path !== '/login'" />
+    <Menu />
     <v-main id="main">
       <router-view />
     </v-main>
@@ -17,13 +17,7 @@ export default Vue.extend({
   components: {
     Menu,
   },
-
-  data: () => ({}),
 });
 </script>
 
-<style lang="scss">
-#main {
-  background-color: #003a3d;
-}
-</style>
+<style lang="scss" src="@/assets/main.scss"></style>

@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer app permanent width="55">
+  <v-navigation-drawer app permanent width="55" v-if="$route.meta.menu">
     <v-list nav>
       <v-list-item v-for="item in items" :key="item.title" link :to="item.link">
         <v-list-item-icon>
