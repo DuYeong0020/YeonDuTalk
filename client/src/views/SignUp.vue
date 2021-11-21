@@ -1,12 +1,19 @@
 <template>
-  <v-container>
-    <h1>회원가입</h1>
+  <v-container class="signup">
+    <h1 class="text-center primary--text">회원가입</h1>
+    <signup-form />
   </v-container>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-export default Vue.extend({});
+import SignupForm from "@/components/signup/SignupForm.vue";
+
+export default Vue.extend({
+  components: {
+    SignupForm,
+  },
+});
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>
