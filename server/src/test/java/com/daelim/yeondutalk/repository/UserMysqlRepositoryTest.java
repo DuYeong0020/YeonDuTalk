@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -83,6 +85,45 @@ class UserMysqlRepositoryTest {
         assertThat(findUser).isNull(); // Null인지 확인
 
     }
+
+    @Test
+    @DisplayName("올바른 아이디 비밀번호 입력시 객체 반환")
+    public void findProperIdPassword() throws Exception {
+        // given
+        User saveUser = User.builder()
+                .userId("userId")
+                .userName("dudu")
+                .password("password").build(); // 저장할 user 생성
+        Long saveId = userRepository.save(saveUser);
+        // when
+        User user = User.builder()
+                .userId("userId")
+                .password("password").build();
+        User findUser = userRepository.findByUserIdPassword(user);
+        // then
+        assertThat(findUser).isNotNull();
+
+    }
+    @Test
+    @DisplayName("올바른 아이디 비밀번호 입력시 ")
+    public void findNotProperIdPassword() throws Exception {
+        // given
+        User saveUser = User.builder()
+                .userId("userId")
+                .userName("dudu")
+                .password("password").build(); // 저장할 user 생성
+        Long saveId = userRepository.save(saveUser);
+        // when
+        User user = User.builder()
+                .userId("NotProperUserId")
+                .password("NotProperPassword").build();
+        User findUser = userRepository.findByUserIdPassword(user);
+        // then
+        assertThat(findUser).isNull();
+
+    }
+
+
 
 
 }

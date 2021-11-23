@@ -1,6 +1,7 @@
 package com.daelim.yeondutalk.repository;
 
 import com.daelim.yeondutalk.domain.User;
+import com.daelim.yeondutalk.dto.LogInUserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -36,5 +38,13 @@ public class UserMysqlRepository implements UserRepository{
         }else{
             return userList.get(0);
         }
+    }
+
+    @Override
+    public User findByUserIdPassword(User user) {
+        return em.createQuery("select u from User u where u.userId = :userId and u.password = :password", User.class)
+                .setParameter("userId", user.getUserId())
+                .setParameter("password", user.getPassword())
+                .getResultStream().findFirst().orElse(null);
     }
 }
