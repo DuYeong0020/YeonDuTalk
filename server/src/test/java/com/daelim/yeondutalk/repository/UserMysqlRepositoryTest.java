@@ -1,5 +1,6 @@
 package com.daelim.yeondutalk.repository;
 
+import com.daelim.yeondutalk.domain.Friend;
 import com.daelim.yeondutalk.domain.User;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -105,7 +106,7 @@ class UserMysqlRepositoryTest {
 
     }
     @Test
-    @DisplayName("올바른 아이디 비밀번호 입력시 ")
+    @DisplayName("올바르지 않는 아이디 비밀번호 입력시 null 반환")
     public void findNotProperIdPassword() throws Exception {
         // given
         User saveUser = User.builder()
@@ -119,6 +120,7 @@ class UserMysqlRepositoryTest {
                 .password("NotProperPassword").build();
         User findUser = userRepository.findByUserIdPassword(user);
         // then
+
         assertThat(findUser).isNull();
 
     }
