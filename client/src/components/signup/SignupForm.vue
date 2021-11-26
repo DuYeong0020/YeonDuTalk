@@ -46,6 +46,17 @@
     >
       회원가입
     </v-btn>
+
+    <v-btn
+      :disabled="!valid"
+      color="primary"
+      block
+      text
+      small
+      @click="$router.go(-1)"
+    >
+      이미 계정이 있어요
+    </v-btn>
   </v-form>
 </template>
 

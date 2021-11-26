@@ -36,6 +36,8 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapMutations } from "vuex";
+
 export default Vue.extend({
   data() {
     return {
@@ -48,9 +50,11 @@ export default Vue.extend({
   },
 
   methods: {
+    ...mapMutations(["SHOW_SNACKBAR"]),
     login() {
       this.$refs.form?.validate();
       this.$router.push("/friends");
+      this.SHOW_SNACKBAR(`안녕하세요 ${"최두영"}님!`);
     },
   },
 });

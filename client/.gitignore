@@ -3,7 +3,7 @@ node_modules
 dist_electron
 package-lock.json
 /dist
-
+.env
 
 # local env files
 .env.local
