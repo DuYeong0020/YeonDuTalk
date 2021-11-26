@@ -57,7 +57,7 @@ public class FriendMysqlRepository implements FriendRepository {
 
 
     @Override
-    public List<FriendListDTO> findFriendListByRequestUser(User requestUser) {
+    public List<FriendListDTO> findFriendList(User requestUser) {
         return em.createQuery("select new com.daelim.yeondutalk.dto.friend.FriendListDTO(u.id, u.userName) " +
                         "from Friend f inner join f.tagUser u where f.requestUser = :requestUser and f.accepted = 'Y' and f.deleted = 'N'", FriendListDTO.class)
                 .setParameter("requestUser", requestUser)
@@ -65,17 +65,10 @@ public class FriendMysqlRepository implements FriendRepository {
     }
 
     @Override
-    public void deleteFriend(User requestUser, User tagUser) {
-        em.createQuery("delete from Friend f where (f.requestUser =: requestUser and f.tagUser = :tagUser and f.accepted = 'Y') " +
-                "or (f.requestUser =: tagUser and f.tagUser =: requestUser and f.accepted = 'Y')")
-                .setParameter("requestUser", requestUser)
-                .setParameter("tagUser", tagUser).executeUpdate();
-    }
-
-    @Override
-    public void deleteFriendRequest(User requestUser, User tagUser) {
-        em.createQuery("delete from Friend f where f.requestUser =: requestUser and f.tagUser =: tagUser and f.accepted = 'N'")
-                .setParameter("requestUser", requestUser)
-                .setParameter("tagUser", tagUser).executeUpdate();
+    public List<FriendListDTO> findFriendListByTag(Long id) {
+        return em.createQuery("select new com.daelim.yeondutalk.dto.friend.FriendListDTO(u.id, u.userName) " +
+                        "from Friend f inner join f.requestUser u where f.tagUser.id = :id and f.accepted = 'N' and f.deleted = 'N'", FriendListDTO.class)
+                .setParameter("id", id)
+                .getResultList();
     }
 }

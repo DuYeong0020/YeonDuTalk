@@ -1,5 +1,6 @@
 package com.daelim.yeondutalk.controller;
 
+import com.daelim.yeondutalk.argumentresolver.LogIn;
 import com.daelim.yeondutalk.domain.User;
 import com.daelim.yeondutalk.dto.ErrorResult;
 import com.daelim.yeondutalk.dto.user.JoinUserDTO;
@@ -35,7 +36,7 @@ public class UserController {
     // 회원가입
     @PostMapping("/yeondu/join")
     public Long join(@RequestBody JoinUserDTO userDTO){
-        
+
         User joinUser = User.builder().password(passwordEncoder.encode(userDTO.getUserPassword()))
                 .userName(userDTO.getUserName())
                 .userId(userDTO.getUserId()).build();
@@ -56,6 +57,13 @@ public class UserController {
 
         return logInUser;
 
+    }
+
+    @PostMapping("/yeondu/logout")
+    public String logout(@LogIn UserDTO user, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        session.invalidate();
+        return "redirect:/";
     }
 
 

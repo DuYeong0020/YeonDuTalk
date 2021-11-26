@@ -36,7 +36,7 @@ public class UserService {
         }else { // 중복된 회원이 있으면 null 반환
 
 
-            throw new RuntimeException("duplicatedMemberId");
+            throw new RuntimeException("중복된 ID값입니다.");
         }
 
     }
@@ -48,12 +48,12 @@ public class UserService {
         User findUserByUser = userRepository.findByUserId(user.getUserId());
         // 비밀번호가 맞는지 확인
         if (findUserByUser == null) {
-            throw new RuntimeException("isNotUserId");
+            throw new RuntimeException("유저 아이디가 존재하지 않습니다.");
         }
 
         // 둘 다 맞으면
         if (!passwordEncoder.matches(user.getPassword(), findUserByUser.getPassword())) {
-            throw new RuntimeException("isNotUserPassword");
+            throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         }
         return UserDTO.builder().id(findUserByUser.getId())
                 .name(findUserByUser.getUserName()).build();

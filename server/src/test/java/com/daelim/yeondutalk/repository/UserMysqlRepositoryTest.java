@@ -74,6 +74,7 @@ class UserMysqlRepositoryTest {
                 .userId("notDuplicatedId")
                 .userName("dudu")
                 .password("password").build(); // 저장할 user 생성
+        userRepository.save(saveUser);
         // when
         User findUser = userRepository.findByUserId(saveUser.getUserId()); // 중복되지 않으면 null 반환. false면 null 반환
         // then
