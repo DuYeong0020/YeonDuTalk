@@ -3,12 +3,14 @@ package com.daelim.yeondutalk.repository.user;
 import com.daelim.yeondutalk.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class UserMysqlRepository implements UserRepository {
 
     private final EntityManager em;

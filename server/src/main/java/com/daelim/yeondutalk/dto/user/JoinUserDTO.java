@@ -4,8 +4,9 @@ import lombok.*;
 
 @Getter @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor @ToString
 public class JoinUserDTO {
+
 
     private String userId;
 

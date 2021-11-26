@@ -26,6 +26,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(logInCheckInterceptor)
                 .order(1)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/", "/yeondu/login" , "yeondu/join", "/index.html", "/css/**");
+                .excludePathPatterns("/", "/yeondu/login" , "/yeondu/join", "/error", "/index.html", "/css/**");
     }
 }
