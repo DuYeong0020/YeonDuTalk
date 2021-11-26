@@ -35,7 +35,7 @@ public class UserController {
     // 회원가입
     @PostMapping("/yeondu/join")
     public Long join(@RequestBody JoinUserDTO userDTO){
-        System.out.println("userDTO = " + userDTO);
+        
         User joinUser = User.builder().password(passwordEncoder.encode(userDTO.getUserPassword()))
                 .userName(userDTO.getUserName())
                 .userId(userDTO.getUserId()).build();

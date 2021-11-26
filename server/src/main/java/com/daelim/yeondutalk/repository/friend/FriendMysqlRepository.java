@@ -49,7 +49,7 @@ public class FriendMysqlRepository implements FriendRepository {
 
     @Override
     public Friend findByRequestTagId(User requestUser, User tagUser) {
-        return em.createQuery("select f from Friend f where f.requestUser = :requestUser and f.tagUser = :tagUser", Friend.class)
+        return em.createQuery("select f from Friend f where f.requestUser = :requestUser and f.tagUser = :tagUser ", Friend.class)
                 .setParameter("requestUser", requestUser)
                 .setParameter("tagUser", tagUser)
                 .getResultStream().findFirst().orElse(null);
@@ -58,8 +58,8 @@ public class FriendMysqlRepository implements FriendRepository {
 
     @Override
     public List<FriendListDTO> findFriendListByRequestUser(User requestUser) {
-        return em.createQuery("select new com.daelim.yeondutalk.dto.FriendListDTO(u.id, u.userName) " +
-                        "from Friend f inner join f.tagUser u where f.requestUser = :requestUser and f.accepted = 'Y'", FriendListDTO.class)
+        return em.createQuery("select new com.daelim.yeondutalk.dto.friend.FriendListDTO(u.id, u.userName) " +
+                        "from Friend f inner join f.tagUser u where f.requestUser = :requestUser and f.accepted = 'Y' and f.deleted = 'N'", FriendListDTO.class)
                 .setParameter("requestUser", requestUser)
                 .getResultList();
     }

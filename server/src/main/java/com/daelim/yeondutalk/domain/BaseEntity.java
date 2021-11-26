@@ -34,6 +34,10 @@ public abstract class BaseEntity {
         updateDate = LocalDateTime.now();
     }
 
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

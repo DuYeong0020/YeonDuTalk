@@ -28,14 +28,9 @@ public class UserMysqlRepository implements UserRepository {
 
     @Override
     public User findByUserId(String userId) {
+        return em.createQuery("select u from User u where u.userId = :userId", User.class)
+                .setParameter("userId", userId).getResultStream().findFirst().orElse(null);
 
-        List<User> userList = em.createQuery("select u from User u where u.userId = :userId", User.class)
-                .setParameter("userId", userId).getResultList();
-        if (userList.isEmpty()) {
-            return null;
-        }else{
-            return userList.get(0);
-        }
     }
 
     @Override

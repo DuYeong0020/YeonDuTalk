@@ -15,22 +15,55 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class FriendService {
     private final FriendRepository friendRepository;
     private final UserRepository userRepository;
 
-
-
     // 친구 요청
-    public Long requestFriend(Long requestId, Long tagUserId) {
+    public Long requestFriend(Long requestId, String tagUserId) {
+
         // User 객체(request, tag) 불러오기
-        User requestUser = userRepository.findById(requestId);
-        User tagUser = userRepository.findById(tagUserId);
+        User tagUser = userRepository.findByUserId(tagUserId); // 상대방은 아이디 값으로 가져오기
+        User requestUser = userRepository.findById(requestId); // 유저는 id값으로 가져오기
 
-        // 친구 요청하기
-        Long saveFriendId = friendRepository.save(requestUser, tagUser);
 
-        return saveFriendId;
+        if (requestUser == null) {
+            throw new RuntimeException("notUser");
+        } else if (tagUser == null) {
+            throw new RuntimeException("notTagUser");
+        }
+
+        // 친구인지 확인하기
+        // 이미 친구라면 ?
+        Friend findFriendByRequest = friendRepository.findByRequestTagId(requestUser, tagUser);
+        if (findFriendByRequest != null && findFriendByRequest.getAccepted().equals("Y") && findFriendByRequest.getDeleted().equals("N")) {
+            throw new RuntimeException("alreadyFriends");
+
+        }
+        // 아직 친구를 요청한 상태라면??? 상대방이 받지 않음
+        if (findFriendByRequest != null && findFriendByRequest.getAccepted().equals("N") && findFriendByRequest.getDeleted().equals("N")) {
+            throw new RuntimeException("alreadyFriendsRequest");
+        }
+        Friend findFriendByTag = friendRepository.findByRequestTagId(tagUser, requestUser);
+        // 한번 친구가 삭제가 된적이 있더라면 수정만
+        if (findFriendByRequest != null && findFriendByRequest.getAccepted().equals("N") && findFriendByRequest.getDeleted().equals("Y")) {
+
+            findFriendByRequest.setDeleted("N");
+
+
+            findFriendByTag.setDeleted("N");
+            return findFriendByRequest.getId();
+        }
+        else if (findFriendByRequest == null) { // 양쪽에서 신청한적이 없다.
+            Long saveFriendId = friendRepository.save(requestUser, tagUser);
+            return saveFriendId;
+        } else {
+            throw new RuntimeException("friendsRequestError");
+        }
+
+
+
     }
 
     // 친구 리스트 출력
