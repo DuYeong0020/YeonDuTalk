@@ -20,7 +20,7 @@ public class Room extends BaseEntity {
     @JoinColumn(name = "ROOM_CODE", nullable = false)
     private CommonCode code;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CRER_ID", nullable = false)
     private User user;
 

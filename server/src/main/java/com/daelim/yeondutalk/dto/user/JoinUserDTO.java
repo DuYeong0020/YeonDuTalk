@@ -1,4 +1,4 @@
-package com.daelim.yeondutalk.dto;
+package com.daelim.yeondutalk.dto.user;
 
 import lombok.*;
 
@@ -8,6 +8,8 @@ import lombok.*;
 public class JoinUserDTO {
 
     private String userId;
+
+    private String userName;
 
     private String userPassword;
 }

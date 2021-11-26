@@ -1,9 +1,6 @@
-package com.daelim.yeondutalk.repository;
+package com.daelim.yeondutalk.repository.user;
 
 import com.daelim.yeondutalk.domain.User;
-import com.daelim.yeondutalk.dto.LogInUserDTO;
-
-import java.util.Optional;
 
 public interface UserRepository {
 
@@ -13,7 +10,7 @@ public interface UserRepository {
 
     public User findByUserId(String userId); // userId로 User 반환
 
-    public User findByUserIdPassword(User userDTO); // password로 User 반환
+    public User findByUserIdPassword(User user); // password로 User 반환
 
 
 

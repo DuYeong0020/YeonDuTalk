@@ -1,7 +1,10 @@
-package com.daelim.yeondutalk.repository;
+package com.daelim.yeondutalk.repository.friend;
 
 import com.daelim.yeondutalk.domain.Friend;
 import com.daelim.yeondutalk.domain.User;
+import com.daelim.yeondutalk.dto.friend.FriendListDTO;
+
+import java.util.List;
 
 public interface FriendRepository {
 
@@ -17,11 +20,16 @@ public interface FriendRepository {
     // requestUser와 tagUser로 친구 요청 데이터 가져오기
     Friend findByRequestTagId(User requestUser, User tagUser);
 
+    // 친구 리스트 출력 User로 친구 리스트를 찾아오기
+
+    List<FriendListDTO> findFriendListByRequestUser(User requestUser);
 
     // 친구 삭제 하기
 
+    void deleteFriend(User requestUser, User tagUser);
+
 
     // 친구 요청온거 삭제하기
-
+    void deleteFriendRequest(User requestUser, User tagUser);
 
 }

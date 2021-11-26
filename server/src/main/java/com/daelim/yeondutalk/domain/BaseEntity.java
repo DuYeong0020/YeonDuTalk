@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @MappedSuperclass @Getter
-public class BaseEntity {
+public abstract class BaseEntity {
 
     @Column(name = "INST_DT", nullable = false, columnDefinition = "DATETIME default CURRENT_TIMESTAMP")
     private LocalDateTime createDate; // 생성일

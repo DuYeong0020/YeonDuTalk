@@ -2,7 +2,9 @@ package com.daelim.yeondutalk.repository;
 
 import com.daelim.yeondutalk.domain.Friend;
 import com.daelim.yeondutalk.domain.User;
-import org.junit.jupiter.api.Assertions;
+import com.daelim.yeondutalk.repository.friend.FriendRepository;
+import com.daelim.yeondutalk.repository.user.UserRepository;
+import com.daelim.yeondutalk.service.FriendService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 @Transactional
 class FriendMysqlRepositoryTest {
@@ -25,7 +29,11 @@ class FriendMysqlRepositoryTest {
 
     @Autowired
     private FriendRepository friendRepository;
-    private Friend findFriend;
+
+    @Autowired
+    private FriendService friendService;
+
+
 
     @Test
     @DisplayName("친구 요청")
@@ -70,10 +78,6 @@ class FriendMysqlRepositoryTest {
         System.out.println("requestUser = " + requestUser);
         System.out.println("tagUser = " + tagUser);
 
-
-
-
-
         // when
         // 친구 요청함
         Long saveId = friendRepository.save(requestUser, tagUser);
@@ -89,6 +93,68 @@ class FriendMysqlRepositoryTest {
         assertThat(findFriend.getTagUser()).isSameAs(tagUser);
         assertThat(findFriend.getAccepted()).isEqualTo("N");
 
+
+
+
+    }
+    @Test
+    @DisplayName("친구 요청받은 상태에서 친구 요청 삭제하기")
+    public void deleteFriendRequest() throws Exception {
+        // given
+        User requestUser = User.builder().
+                userId("requestId").userName("requestName").password("requestPassword")
+                .build();
+
+        User tagUser = User.builder().
+                userId("tagId").userName("tagName").password("tagPassword")
+                .build();
+        userRepository.save(requestUser);
+        userRepository.save(tagUser);
+
+        Long saveId = friendRepository.save(requestUser, tagUser);
+        // when
+        friendRepository.deleteFriendRequest(requestUser, tagUser);
+        // then
+
+        em.flush();
+        em.clear();
+
+        Friend findFriend = friendRepository.findById(saveId);
+
+        assertThat(findFriend).isNull();
+
+    }
+    @Test
+    @DisplayName("친구 상태에서 친구 삭제하기")
+    public void deleteFriend() throws Exception {
+        // given
+        User requestUser = User.builder().
+                userId("requestId").userName("requestName").password("requestPassword")
+                .build();
+
+        User tagUser = User.builder().
+                userId("tagId").userName("tagName").password("tagPassword")
+                .build();
+        userRepository.save(requestUser);
+        userRepository.save(tagUser);
+
+        Long saveId = friendRepository.save(requestUser, tagUser);
+
+        List<Long> friendIdList = friendService.acceptFriend(requestUser.getId(), tagUser.getId());
+
+
+        // when
+        friendRepository.deleteFriend(requestUser, tagUser);
+        em.flush();
+        em.clear();
+
+        // then
+        Friend findFriend = friendRepository.findById(friendIdList.get(0));
+
+        Friend findContraryFriend = friendRepository.findById(friendIdList.get(1));
+
+        assertThat(findFriend).isNull();
+        assertThat(findContraryFriend).isNull();
 
     }
 

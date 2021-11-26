@@ -2,9 +2,7 @@ package com.daelim.yeondutalk.service;
 
 import com.daelim.yeondutalk.domain.Friend;
 import com.daelim.yeondutalk.domain.User;
-import com.daelim.yeondutalk.repository.FriendRepository;
-import com.daelim.yeondutalk.repository.UserRepository;
-import org.junit.jupiter.api.Assertions;
+import com.daelim.yeondutalk.repository.friend.FriendRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 @Transactional
 class FriendServiceTest {
@@ -84,7 +82,7 @@ class FriendServiceTest {
         Long saveId = friendRepository.save(requestUser, tagUser);
 
         // when
-        Long acceptId = friendService.acceptFriend(requestUser.getId(), tagUser.getId());
+        friendService.acceptFriend(requestUser.getId(), tagUser.getId());
 
         em.flush();
 

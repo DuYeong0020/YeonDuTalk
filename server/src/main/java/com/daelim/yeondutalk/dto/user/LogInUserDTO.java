@@ -1,4 +1,4 @@
-package com.daelim.yeondutalk.dto;
+package com.daelim.yeondutalk.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

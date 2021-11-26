@@ -1,20 +1,14 @@
 package com.daelim.yeondutalk.repository;
 
-import com.daelim.yeondutalk.domain.Friend;
 import com.daelim.yeondutalk.domain.User;
-import org.assertj.core.api.Assertions;
+import com.daelim.yeondutalk.repository.user.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -105,6 +99,7 @@ class UserMysqlRepositoryTest {
         assertThat(findUser).isNotNull();
 
     }
+
     @Test
     @DisplayName("올바르지 않는 아이디 비밀번호 입력시 null 반환")
     public void findNotProperIdPassword() throws Exception {

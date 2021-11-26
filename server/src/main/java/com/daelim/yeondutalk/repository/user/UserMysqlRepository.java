@@ -1,19 +1,15 @@
-package com.daelim.yeondutalk.repository;
+package com.daelim.yeondutalk.repository.user;
 
 import com.daelim.yeondutalk.domain.User;
-import com.daelim.yeondutalk.dto.LogInUserDTO;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class UserMysqlRepository implements UserRepository{
+public class UserMysqlRepository implements UserRepository {
 
     private final EntityManager em;
 
