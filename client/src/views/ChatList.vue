@@ -4,7 +4,7 @@
       <v-subheader>채팅</v-subheader>
       <v-list-item-group v-model="selected" active-class="primary--text">
         <template v-for="(item, index) in items">
-          <v-list-item :key="item.title">
+          <v-list-item :key="item.title" @click="$router.push('/chatroom')">
             <v-list-item-avatar>
               <v-img :alt="`${item.title} avatar`" :src="item.avatar"></v-img>
             </v-list-item-avatar>
