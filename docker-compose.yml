@@ -11,8 +11,6 @@ services:
       - --collation-server=utf8mb4_unicode_ci
     restart: always
     environment:
-      - MYSQL_DATABASE=root
+      - MYSQL_DATABASE=yeondu
       - MYSQL_ROOT_PASSWORD=root
       - TZ=Asia/Seoul
-    volumes:
-      - /Users/duyeong/Projects/yeondutalk/db/mysql:/var/lib/mysql
