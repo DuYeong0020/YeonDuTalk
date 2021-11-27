@@ -63,6 +63,9 @@
 <script lang="ts">
 import Vue from "vue";
 import { userIdRules, passwordRules, usernameRules } from "@/utils/validation";
+import { signup } from "@/api/user";
+import { mapMutations } from "vuex";
+import axios from "axios";
 
 export default Vue.extend({
   data: () => ({
@@ -77,8 +80,21 @@ export default Vue.extend({
   }),
 
   methods: {
-    signup() {
-      this.$refs.form?.validate();
+    ...mapMutations(["SHOW_SNACKBAR"]),
+    async signup() {
+      if (!this.$refs.form?.validate()) return;
+      try {
+        const result = await signup({
+          userId: this.userId,
+          userPassword: this.password2,
+          userName: this.username,
+        });
+        this.$router.push("/login");
+        this.SHOW_SNACKBAR(`${this.username}님 회원가입을 환영합니다!`);
+      } catch (error) {
+        if (axios.isAxiosError(error)) this.SHOW_SNACKBAR(error.message);
+        else console.error(error);
+      }
     },
   },
 });

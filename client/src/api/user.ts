@@ -1,27 +1,27 @@
 import { AxiosInstance } from "axios";
 import { http } from "./index";
 
-interface loginDto {
+export interface loginDto {
   userId: string;
-  password: string;
+  userPassword: string;
 }
 
-interface signinDto {
+export interface signupDto {
   userId: string;
-  password: string;
-  username: string;
+  userPassword: string;
+  userName: string;
 }
 
 const login = (userInfo: loginDto): Promise<AxiosInstance> => {
   return http.post("/login", userInfo);
 };
 
-const signin = (userInfo: signinDto): Promise<AxiosInstance> => {
-  return http.post("/signin", userInfo);
+const signup = (userInfo: signupDto): Promise<AxiosInstance> => {
+  return http.post("/join", userInfo);
 };
 
 const logout = (): Promise<AxiosInstance> => {
-  return http.post("logout");
+  return http.post("/logout");
 };
 
-export { login, signin, logout };
+export { login, signup, logout };

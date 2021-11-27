@@ -13,7 +13,7 @@
         required
       ></v-text-field>
       <v-text-field
-        v-model="password"
+        v-model="userPassword"
         prepend-icon="mdi-lock"
         label="비밀번호"
         :rules="passwordRules"
@@ -37,6 +37,8 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapMutations } from "vuex";
+import { login } from "@/api/user";
+import axios, { AxiosError } from "axios";
 
 export default Vue.extend({
   data() {
@@ -44,17 +46,26 @@ export default Vue.extend({
       valid: true,
       userId: "",
       userIdRules: [(v: string) => !!v || "아이디를 입력해주세요"],
-      password: "",
+      userPassword: "",
       passwordRules: [(v: string) => !!v || "비밀번호를 입력해주세요"],
     };
   },
 
   methods: {
     ...mapMutations(["SHOW_SNACKBAR"]),
-    login() {
-      this.$refs.form?.validate();
-      this.$router.push("/friends");
-      this.SHOW_SNACKBAR(`안녕하세요 ${"최두영"}님!`);
+    async login() {
+      if (!this.$refs.form?.validate()) return;
+      try {
+        const res = await login({
+          userId: this.userId,
+          userPassword: this.userPassword,
+        });
+        this.$router.push("/friends");
+        this.SHOW_SNACKBAR(`안녕하세요 ${res.data.name}님!`);
+      } catch (error) {
+        if (axios.isAxiosError(error)) this.SHOW_SNACKBAR(error.message);
+        else console.error(error);
+      }
     },
   },
 });

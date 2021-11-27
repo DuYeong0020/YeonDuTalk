@@ -2,7 +2,9 @@
   <v-app dark>
     <Menu />
     <v-main id="main">
-      <router-view />
+      <v-slide-x-transition mode="out-in">
+        <router-view />
+      </v-slide-x-transition>
       <snackbar />
     </v-main>
   </v-app>

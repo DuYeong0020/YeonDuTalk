@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     snackbar: {
       message: "",
-      show: true,
+      show: false,
     },
   },
   mutations: {
