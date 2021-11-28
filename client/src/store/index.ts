@@ -37,7 +37,9 @@ export default new Vuex.Store({
   },
   actions: {
     async fetchFriends({ commit, state: { user } }) {
-      await fetchFriends(user.id);
+      const userList = await fetchFriends(user.id);
+      console.log(userList);
+      commit("FETCH_USER_FRIENDS", userList);
     },
   },
   modules: {},

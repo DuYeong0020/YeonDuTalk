@@ -1,9 +1,7 @@
 <template>
   <v-container class="text-center">
     <v-avatar rounded size="120">
-      <v-img
-        src="https://cdn.vuetifyjs.com/images/lists/1.jpg"
-      ></v-img> </v-avatar
+      <v-img src="@/assets/default-avatar.png"></v-img> </v-avatar
     ><v-form class="multi-col-validation">
       <v-card-text class="pt-8">
         <v-row>

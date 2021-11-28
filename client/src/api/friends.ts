@@ -6,7 +6,7 @@ interface friendDto {
 }
 
 const fetchFriends = async (id: number): Promise<friendDto> => {
-  const { data } = await http.get(`/friends/login/${id}`);
+  const { data } = await http.get(`/friends/${id}`);
   return data;
 };
 

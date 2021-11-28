@@ -22,7 +22,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/chatroom",
     name: "ChatRoom",
-    component: () => import("../views/Room.vue"),
+    component: () => import("../views/ChatRoom.vue"),
     meta: { menu: false },
   },
 ];

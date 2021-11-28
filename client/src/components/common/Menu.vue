@@ -34,7 +34,7 @@ export default Vue.extend({
     return {
       menuTop: [
         { link: "/friends", icon: "mdi-account-supervisor" },
-        { link: "/chat-list", icon: "mdi-message" },
+        // { link: "/chat-list", icon: "mdi-message" },
       ],
       menuBottom: [
         { link: "/", icon: "mdi-logout" },
