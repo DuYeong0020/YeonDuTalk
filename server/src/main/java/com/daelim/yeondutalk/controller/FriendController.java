@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping
 public class FriendController {
 
     private final FriendService friendService;
@@ -56,6 +57,4 @@ public class FriendController {
     public List<FriendListDTO> requestFriendList(@LogIn UserDTO user, @PathVariable Long id) {
         return friendService.getRequestFriendList(user.getId());
     }
-
-
 }

@@ -72,10 +72,17 @@ export default Vue.extend({
     usernameRules,
   }),
 
+  computed: {
+    form(): Vue & { validate: () => boolean } {
+      return this.$refs.form as Vue & { validate: () => boolean };
+    },
+  },
+
   methods: {
     ...mapMutations(["SHOW_SNACKBAR"]),
+
     async signup() {
-      if (!this.$refs.form?.validate()) return;
+      if (!this.form) return;
       try {
         await signup({
           userId: this.userId,

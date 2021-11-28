@@ -4,7 +4,7 @@
       <v-avatar size="32" class="mr-2">
         <img src="@/assets/default-avatar.png" alt="기본아바타" />
       </v-avatar>
-      <v-toolbar-title>이연권</v-toolbar-title>
+      <v-toolbar-title>{{ friend.name }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon @click="$router.go(-1)">
         <v-icon>mdi-arrow-left</v-icon>
@@ -21,7 +21,7 @@
               outlined
               absolute
               :right="user.name === item.userName"
-              :left="user.name === item.userName"
+              :left="user.name !== item.userName"
               shaped
               multi-line
               min-width="10"
@@ -70,10 +70,27 @@ interface Message {
   dateTime: string;
 }
 
+interface Friend {
+  id: number;
+  name: string;
+}
+
+interface SocketResponse {
+  body: string;
+}
+
 export default Vue.extend({
   data() {
     return {
-      stompClient: {},
+      friend: {} as Friend,
+      stompClient: {
+        send: (a: string, b: string, c: any) => {
+          return;
+        },
+        connected: false,
+        subscribe: Function,
+      },
+      connected: false,
       message: "",
       messages: [] as Message[],
     };
@@ -86,10 +103,15 @@ export default Vue.extend({
   },
 
   computed: {
-    ...mapState(["user"]),
+    ...mapState(["user", "friends"]),
   },
 
   created() {
+    const friendId = Number(this.$route.params.id) as number;
+    const friendData = this.friends.filter(
+      (friend: Friend) => friendId === friend.id
+    );
+    this.friend = friendData[0];
     this.connect();
   },
 
@@ -113,15 +135,20 @@ export default Vue.extend({
       console.log(`소켓 연결을 시도합니다. 서버 주소: ${serverURL}`);
       this.stompClient.connect(
         {},
-        (frame) => {
+        (frame: any) => {
           this.connected = true;
           console.log("소켓 연결 성공", frame);
-          this.stompClient.subscribe("/send", ({ body }) => {
-            console.log("asdfasdf");
-            this.messages.push(JSON.parse(body));
+          this.stompClient.subscribe("/send", (res: SocketResponse) => {
+            const newMessage = JSON.parse(res.body);
+            console.log(this.user.name, this.friend.name);
+            if (
+              newMessage.userName === this.user.name ||
+              newMessage.userName === this.friend.name
+            )
+              this.messages.push(newMessage);
           });
         },
-        (error) => {
+        (error: any) => {
           console.log("소켓 연결 실패", error);
           this.connected = false;
         }
@@ -130,6 +157,7 @@ export default Vue.extend({
   },
 });
 </script>
+
 <style lang="scss" scoped>
 .chat-box {
   height: 80vh;

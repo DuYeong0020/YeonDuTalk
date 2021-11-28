@@ -4,6 +4,11 @@ import { fetchFriends } from "@/api/friends";
 
 Vue.use(Vuex);
 
+interface Friend {
+  id: number;
+  name: string;
+}
+
 export default new Vuex.Store({
   state: {
     user: {
@@ -14,7 +19,7 @@ export default new Vuex.Store({
       message: "",
       show: false,
     },
-    friends: [],
+    friends: [] as Friend[],
   },
   getters: {
     getUserPk(state) {
@@ -38,7 +43,6 @@ export default new Vuex.Store({
   actions: {
     async fetchFriends({ commit, state: { user } }) {
       const userList = await fetchFriends(user.id);
-      console.log(userList);
       commit("FETCH_USER_FRIENDS", userList);
     },
   },

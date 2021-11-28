@@ -22,13 +22,13 @@ public class WebConfig implements WebMvcConfigurer {
         resolvers.add(new LogInUserArgumentResolver());
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(logInCheckInterceptor)
-                .order(1)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/", "/yeondu/login" , "/yeondu/join", "/error", "/index.html", "/css/**");
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(logInCheckInterceptor)
+//                .order(1)
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/", "/yeondu/login" , "/yeondu/join", "/error", "/index.html", "/css/**");
+//    }
 
 
     @Override

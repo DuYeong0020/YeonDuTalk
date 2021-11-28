@@ -12,18 +12,23 @@
 
     <v-list subheader>
       <v-list-item-group v-model="selected" active-class="primary--text">
-        <v-subheader>친구 {{ recent.length }}명</v-subheader>
+        <v-subheader>친구 {{ friends.length || 0 }}명</v-subheader>
 
-        <v-list-item v-for="(chat, i) in recent" :key="i" class="freind-item">
+        <v-list-item
+          v-for="(friend, i) in friends"
+          :key="i"
+          class="freind-item"
+          @click="startChat(friend.id)"
+        >
           <v-list-item-avatar>
             <v-img
-              :alt="`${chat.title} avatar`"
+              :alt="`${friend.name} avatar`"
               src="@/assets/default-avatar.png"
             ></v-img>
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title v-text="chat.title"></v-list-item-title>
+            <v-list-item-title v-text="friend.name"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>
@@ -39,25 +44,11 @@ export default Vue.extend({
   data() {
     return {
       selected: null,
-      recent: [
-        {
-          title: "일연권",
-        },
-        {
-          title: "이연권",
-        },
-        {
-          title: "삼연권",
-        },
-        {
-          title: "사연권",
-        },
-      ],
     };
   },
 
   computed: {
-    ...mapState(["user"]),
+    ...mapState(["user", "friends"]),
   },
 
   async created() {
@@ -66,6 +57,10 @@ export default Vue.extend({
 
   methods: {
     ...mapActions(["fetchFriends"]),
+
+    startChat(id: number) {
+      this.$router.push(`/chatroom/${id}`);
+    },
   },
 });
 </script>

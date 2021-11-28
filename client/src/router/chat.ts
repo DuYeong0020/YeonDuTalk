@@ -20,7 +20,7 @@ const routes: Array<RouteConfig> = [
     meta: { menu: true },
   },
   {
-    path: "/chatroom",
+    path: "/chatroom/:id",
     name: "ChatRoom",
     component: () => import("../views/ChatRoom.vue"),
     meta: { menu: false },

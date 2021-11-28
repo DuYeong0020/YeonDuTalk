@@ -51,10 +51,16 @@ export default Vue.extend({
     };
   },
 
+  computed: {
+    form(): Vue & { validate: () => boolean } {
+      return this.$refs.form as Vue & { validate: () => boolean };
+    },
+  },
+
   methods: {
     ...mapMutations(["SHOW_SNACKBAR", "FETCH_USER_INFO"]),
     async login() {
-      if (!this.$refs.form?.validate()) return;
+      if (!this.form) return;
       try {
         const res = await login({
           userId: this.userId,
