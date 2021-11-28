@@ -47,14 +47,7 @@
       회원가입
     </v-btn>
 
-    <v-btn
-      :disabled="!valid"
-      color="primary"
-      block
-      text
-      small
-      @click="$router.go(-1)"
-    >
+    <v-btn color="primary" block text small @click="$router.go(-1)">
       이미 계정이 있어요
     </v-btn>
   </v-form>
@@ -84,12 +77,12 @@ export default Vue.extend({
     async signup() {
       if (!this.$refs.form?.validate()) return;
       try {
-        const result = await signup({
+        await signup({
           userId: this.userId,
           userPassword: this.password2,
           userName: this.username,
         });
-        this.$router.push("/login");
+        this.$router.go(-1);
         this.SHOW_SNACKBAR(`${this.username}님 회원가입을 환영합니다!`);
       } catch (error) {
         if (axios.isAxiosError(error)) this.SHOW_SNACKBAR(error.message);

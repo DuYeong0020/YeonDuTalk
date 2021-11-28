@@ -1,23 +1,30 @@
 import { AxiosInstance } from "axios";
 import { http } from "./index";
 
-export interface loginDto {
+interface loginDto {
   userId: string;
   userPassword: string;
 }
 
-export interface signupDto {
+interface signupDto {
   userId: string;
   userPassword: string;
   userName: string;
 }
 
-const login = (userInfo: loginDto): Promise<AxiosInstance> => {
-  return http.post("/login", userInfo);
+interface userDto {
+  id: number;
+  name: string;
+}
+
+const login = async (userInfo: loginDto): Promise<userDto> => {
+  const { data } = await http.post("/login", userInfo);
+  return data;
 };
 
-const signup = (userInfo: signupDto): Promise<AxiosInstance> => {
-  return http.post("/join", userInfo);
+const signup = async (userInfo: signupDto): Promise<userDto> => {
+  const { data } = await http.post("/join", userInfo);
+  return data;
 };
 
 const logout = (): Promise<AxiosInstance> => {

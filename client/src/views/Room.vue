@@ -6,7 +6,7 @@
       </v-avatar>
       <v-toolbar-title>이연권</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon>
+      <v-btn icon @click="$router.go(-1)">
         <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
     </v-toolbar>

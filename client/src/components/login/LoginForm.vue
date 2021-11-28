@@ -38,7 +38,7 @@
 import Vue from "vue";
 import { mapMutations } from "vuex";
 import { login } from "@/api/user";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 export default Vue.extend({
   data() {
@@ -52,7 +52,7 @@ export default Vue.extend({
   },
 
   methods: {
-    ...mapMutations(["SHOW_SNACKBAR"]),
+    ...mapMutations(["SHOW_SNACKBAR", "FETCH_USER_INFO"]),
     async login() {
       if (!this.$refs.form?.validate()) return;
       try {
@@ -61,9 +61,11 @@ export default Vue.extend({
           userPassword: this.userPassword,
         });
         this.$router.push("/friends");
-        this.SHOW_SNACKBAR(`안녕하세요 ${res.data.name}님!`);
+        this.SHOW_SNACKBAR(`안녕하세요 ${res.name}님!`);
+        this.FETCH_USER_INFO(res);
       } catch (error) {
-        if (axios.isAxiosError(error)) this.SHOW_SNACKBAR(error.message);
+        if (axios.isAxiosError(error))
+          this.SHOW_SNACKBAR(error.response?.data.message);
         else console.error(error);
       }
     },
