@@ -13,6 +13,7 @@
       v-model="password1"
       class="mt-5"
       :rules="passwordRules"
+      type="password"
       label="비밀번호"
       outlined
       required
@@ -21,6 +22,7 @@
     <v-text-field
       v-model="password2"
       class="mt-5"
+      type="password"
       :rules="passwordRules"
       label="비밀번호 확인"
       outlined
